@@ -41,7 +41,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
           branch: gh-pages 
-          folder: build/web
+          folder: ${{ vars.EXPORT_NAME }}-HTML5/build/web
 
   deploy-to-itchio-web:
     runs-on: ubuntu-20.04
@@ -59,4 +59,4 @@ jobs:
           CHANNEL: web
           ITCH_GAME: ${{ vars.ITCH_GAME }}
           ITCH_USER: ${{ vars.ITCH_USER }}
-          PACKAGE: build/web
+          PACKAGE: ${{ vars.EXPORT_NAME }}-HTML5/build/web
