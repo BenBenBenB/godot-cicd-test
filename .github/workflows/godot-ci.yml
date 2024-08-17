@@ -30,6 +30,8 @@ jobs:
           path: build/web
 
   deploy-to-github-pages:
+    permissions:
+      contents: write
     runs-on: ubuntu-20.04
     needs: export-game
     steps:
