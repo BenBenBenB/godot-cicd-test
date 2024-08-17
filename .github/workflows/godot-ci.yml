@@ -9,7 +9,7 @@ jobs:
   export-game:
     runs-on: ubuntu-20.04
     container:
-      image: barichello/godot-ci:${GODOT_VERSION}
+      image: barichello/godot-ci:${{ vars.GODOT_VERSION }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,7 +26,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${EXPORT_NAME}"-HTML5"
+          name: ${{ vars.EXPORT_NAME }}"-HTML5"
           path: build/web
 
   deploy-to-github-pages:
@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          name: ${EXPORT_NAME}"-HTML5"
+          name: ${{ vars.EXPORT_NAME }}"-HTML5"
       - name: Deploy to GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
@@ -51,12 +51,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          name: ${EXPORT_NAME}"-HTML5"
+          name: ${{ vars.EXPORT_NAME }}"-HTML5"
       - name: Deploy to Itch.io (HTML5)
         uses: manleydev/butler-publish-itchio-action@master
         env:
-          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY}}
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           CHANNEL: web
-          ITCH_GAME: ${ITCH_GAME}
-          ITCH_USER: ${ITCH_USER}
+          ITCH_GAME: ${{ vars.ITCH_GAME }}
+          ITCH_USER: ${{ vars.ITCH_USER }}
           PACKAGE: build/web
