@@ -16,8 +16,8 @@ mono_crash.*.json
 
 # gd-plug
 /.plugged
-/addons
-!/addons/gd-plug/plug.gd
+/addons/*
+!/addons/gd-plug
 
 # Custom
 bin/
