@@ -19,6 +19,8 @@ jobs:
         run: |
           mkdir -v -p ~/.local/share/godot/export_templates
           mv /root/.local/share/godot/export_templates/${{ vars.GODOT_VERSION }}.stable ~/.local/share/godot/export_templates/${{ vars.GODOT_VERSION }}.stable
+      - name: Install Plugins with gd-plug
+        run: godot --headless -s plug.gd install production
       - name: Web Build
         run: |
           mkdir -v -p build/web
@@ -44,21 +46,3 @@ jobs:
         with:
           branch: gh-pages 
           folder: .
-
-  deploy-to-itchio-web:
-    runs-on: ubuntu-20.04
-    needs: export-game
-    environment: production
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          name: ${{ vars.EXPORT_NAME }}-HTML5
-      - name: Deploy to Itch.io (HTML5)
-        uses: manleydev/butler-publish-itchio-action@master
-        env:
-          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
-          CHANNEL: web
-          ITCH_GAME: ${{ vars.ITCH_GAME }}
-          ITCH_USER: ${{ vars.ITCH_USER }}
-          PACKAGE: .
