@@ -3,7 +3,7 @@ extends SceneTree
 
 signal updated(plugin)
 
-const VERSION = "0.2.6"
+const VERSION = "0.2.6_fork"
 const DEFAULT_PLUGIN_URL = "https://git::@github.com/%s.git"
 const DEFAULT_PLUG_DIR = "res://.plugged"
 const DEFAULT_CONFIG_PATH = DEFAULT_PLUG_DIR + "/index.cfg"
@@ -179,6 +179,8 @@ func _finalize():
 	_plug_end()
 	threadpool.stop()
 	logger.info("Finished, elapsed %.3fs" % ((Time.get_ticks_msec() - _start_time) / 1000.0))
+	request_quit(0)
+
 
 func _on_updated(plugin):
 	pass
