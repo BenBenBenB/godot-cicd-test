@@ -3,7 +3,7 @@ extends SceneTree
 
 signal updated(plugin)
 
-const VERSION = "0.2.6_fork"
+const VERSION = "0.2.6"
 const DEFAULT_PLUGIN_URL = "https://git::@github.com/%s.git"
 const DEFAULT_PLUG_DIR = "res://.plugged"
 const DEFAULT_CONFIG_PATH = DEFAULT_PLUG_DIR + "/index.cfg"
@@ -98,7 +98,7 @@ func _initialize():
 				logger.error("Unknown command %s" % args[0])
 				show_syntax()
 	# NOTE: Do no put anything after this line except request_quit(), as _plug_*() may call request_quit()
-	request_quit()
+	request_quit(0)
 
 func show_syntax():
 	logger.info("gd-plug - Minimal plugin manager for Godot")
@@ -179,8 +179,6 @@ func _finalize():
 	_plug_end()
 	threadpool.stop()
 	logger.info("Finished, elapsed %.3fs" % ((Time.get_ticks_msec() - _start_time) / 1000.0))
-	request_quit(0)
-
 
 func _on_updated(plugin):
 	pass
